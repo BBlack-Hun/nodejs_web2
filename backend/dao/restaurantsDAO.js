@@ -9,7 +9,7 @@ export default class RestaurantsDAO {
     try {
       restaurants = await conn
         .db(process.env.RESTREVIEWS_NS)
-        .collection('restaurtants');
+        .collection('restaurants');
     } catch (e) {
       console.error(
         `Unable to establish a collection handle in restaurantsDAO: ${e}`,
