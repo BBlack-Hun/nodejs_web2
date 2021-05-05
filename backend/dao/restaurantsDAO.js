@@ -80,7 +80,7 @@ export default class RestaurantsDAO {
               {
                 $match: {
                   $expr: {
-                    $seq: ['$restaurant_id', '$$id'],
+                    $eq: ['$restaurant_id', '$$id'],
                   },
                 },
               },
@@ -90,7 +90,7 @@ export default class RestaurantsDAO {
                 },
               },
             ],
-            as: 'review',
+            as: 'reviews',
           },
         },
         {
@@ -99,6 +99,7 @@ export default class RestaurantsDAO {
           },
         },
       ];
+      console.log(pipeline[1].$lookup.pipeline[0].$match);
       return await restaurants.aggregate(pipeline).next();
     } catch (e) {
       console.error(`Something went wrong in getRestaurantByID: ${e}`);
