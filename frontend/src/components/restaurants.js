@@ -22,7 +22,38 @@ const Restaurant = (props) => {
         console.log(e);
       });
   };
-  return <div className="App">Hello World.</div>;
+
+  useEffect(() => {
+    getRestaurant(props.match.params.id);
+  }, [props.match.params.id]);
+
+  const deleteReview = (reviewId, index) => {
+    RestaurantDataService.deleteReview(reviewId)
+      .then((response) => {
+        setRsetaurant((prevState) => {
+          prevState.reviews.splice(index, 1);
+          return {
+            ...prevState,
+          };
+        });
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+  return (
+      <div>
+          {restaurant ? (
+              <div>
+                  <h5>{restaurant.name}</h5>
+                  <p>
+                      <strong>Cuisine: </strong>{restaurant.cuisine}<br/>
+                      <strong>Address: </strong>{restaurant.address.building} {restaurant.address.street}, {restaurant.address.zipcode}
+                  </p>
+                  <Link to={"/restaurant"}
+          )}
+      </div>
+  )
 };
 
 export default Restaurant;
