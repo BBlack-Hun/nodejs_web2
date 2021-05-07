@@ -18,6 +18,7 @@ class RestaurantDataService {
   }
 
   updateReview(data) {
+    console.log(data);
     return http.put('/review', data);
   }
 

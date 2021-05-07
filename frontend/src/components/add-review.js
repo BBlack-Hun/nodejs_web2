@@ -28,7 +28,7 @@ const AddReivew = (props) => {
     };
 
     if (editing) {
-      data.review_id = props.location.state.currentReview.user_id;
+      data.review_id = props.location.state.currentReview._id;
       RestaurantDataService.updateReview(data)
         .then((response) => {
           setSubmitted(true);

@@ -24,7 +24,6 @@ export default class ReviewsDAO {
         text: review,
         restaurant_id: ObjectId(restaurantId),
       };
-      console.log(reviewDoc.restaurant_id);
 
       return await reviews.insertOne(reviewDoc);
     } catch (e) {
@@ -42,6 +41,7 @@ export default class ReviewsDAO {
         },
         { $set: { text: text, date: date } },
       );
+      console.log(updateResponse);
 
       return updateResponse;
     } catch (e) {
