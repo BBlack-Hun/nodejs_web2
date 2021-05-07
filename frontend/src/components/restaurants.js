@@ -8,7 +8,7 @@ const Restaurant = (props) => {
     name: '',
     address: {},
     cuisine: '',
-    revies: [],
+    reviews: [],
   };
   const [restaurant, setRsetaurant] = useState(initialRestaruantState);
 
@@ -28,7 +28,7 @@ const Restaurant = (props) => {
   }, [props.match.params.id]);
 
   const deleteReview = (reviewId, index) => {
-    RestaurantDataService.deleteReview(reviewId)
+    RestaurantDataService.deleteReview(reviewId, props.user.id)
       .then((response) => {
         setRsetaurant((prevState) => {
           prevState.reviews.splice(index, 1);
@@ -77,11 +77,15 @@ const Restaurant = (props) => {
                           <br />
                           <strong>Date: </strong>
                           {review.date}
+                          <br />
                         </p>
                         {props.user && props.user.id === review.user_id && (
                           <div className="row">
                             <a
-                              onClick={() => deleteReview(review._id, index)}
+                              href
+                              onClick={() => {
+                                deleteReview(review._id, index);
+                              }}
                               className="btn btn-primary col-lg-5 mx-1 mb-1"
                             >
                               Delete
@@ -89,14 +93,12 @@ const Restaurant = (props) => {
                             <Link
                               to={{
                                 pathname:
-                                  '/restaurants/' +
-                                  props.match.params.id +
-                                  '/review',
+                                  '/restaurants/' + props.match.id + '/review',
                                 state: {
                                   currentReview: review,
                                 },
                               }}
-                              className="btn btn-parimary col-lg-5 mx-1 mb-1"
+                              className="btn btn-primary col-lg-5 mx-1 mb-1"
                             >
                               Edit
                             </Link>
